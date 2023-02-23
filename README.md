@@ -8,7 +8,7 @@ Twitter like clone
 - DB with many-to-many relationships
 - 92% test coverage
 
-## Setting it up
+## Set Up
 1. Create a virtual environment and install requirements:
 ```
 $ python3 -m venv venv
@@ -28,7 +28,7 @@ $ flask run -p 5001
 ```
 4. View at `localhost:5001`
 
-## // TODO
+## To Do
 - UX / UI improvments 
 - User messaging interface, possibly with websocket
 - Additional tests
