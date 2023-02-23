@@ -28,6 +28,14 @@ $ flask run -p 5001
 ```
 4. View at `localhost:5001`
 
+## Tech
+
+Python | Flask | SQL | Postgres | Javascript | HTML | CSS | Bootstrap
+
+## Description
+
+Built in 3.5 days as part of a sprint w/ @nicom while attending Rithm School.
+
 ## To Do
 - UX / UI improvments 
 - User messaging interface, possibly with websocket
