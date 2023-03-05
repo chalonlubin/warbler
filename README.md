@@ -34,7 +34,11 @@ Install warbler as a python package in the top level directory ::
 After installing warbler delete the warbler.egg-info/ directory ::
 
   rm -rf warbler.egg-info/
-  
+
+Then to run ::
+
+  flask run -p (PORT)
+
 ---
 
 ## Tech
@@ -46,6 +50,6 @@ Python | Flask | SQL | Postgres | Javascript | HTML | CSS | Bootstrap
 Built in 3.5 days as part of a sprint w/ @nicom while attending Rithm School.
 
 ## To Do
-- UX / UI improvments 
+- UX / UI improvments
 - User messaging interface, possibly with websocket
 - Additional tests
