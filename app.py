@@ -28,7 +28,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = (
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
-toolbar = DebugToolbarExtension(app)
+
+# need this for now until we can debug the csrf issue...
+app.config['WTF_CSRF_ENABLED'] = False
+
+# toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
 
@@ -51,7 +55,7 @@ def add_user_to_g():
 @app.before_request
 def create_csrf_only_form():
     """ Adds CSFR only form for use in all routes. """
-    
+
     g.csrf_form = CSRFProtectForm()
 
 # add in before_request that validates current user
@@ -79,11 +83,8 @@ def do_logout():
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
     """Handle user signup.
-
     Create new user and add to DB. Redirect to home page.
-
     If form not valid, present form.
-
     If the there already is a user with that username: flash message
     and re-present form.
     """
@@ -159,7 +160,6 @@ def logout():
 @app.get('/users')
 def list_users():
     """Page with listing of users.
-
     Can take a 'q' param in querystring to search by that username.
     """
 
@@ -230,7 +230,6 @@ def show_liked_messages(user_id):
 @app.post('/users/follow/<int:follow_id>')
 def start_following(follow_id):
     """Add a follow for the currently-logged-in user.
-
     Redirect to following page for the current for the current user.
     """
 
@@ -248,7 +247,6 @@ def start_following(follow_id):
 @app.post('/users/stop-following/<int:follow_id>')
 def stop_following(follow_id):
     """Have currently-logged-in-user stop following this user.
-
     Redirect to following page for the current for the current user.
     """
 
@@ -303,7 +301,6 @@ def edit_profile():
 @app.post('/users/delete')
 def delete_user():
     """Delete user.
-
     Redirect to signup page.
     """
 
@@ -325,7 +322,6 @@ def delete_user():
 @app.route('/messages/new', methods=["GET", "POST"])
 def add_message():
     """Add a message:
-
     Show form if GET. If valid, update message and redirect to user page.
     """
 
@@ -362,7 +358,6 @@ def show_message(message_id):
 @app.post('/messages/<int:message_id>/delete')
 def delete_message(message_id):
     """Delete a message.
-
     Check that this message was written by the current user.
     Redirect to user page on success.
     """
@@ -389,52 +384,52 @@ def like_unlike_message(message_id):
         liked_message_ids = {msg.id for msg in g.user.liked_messages} # --> this is a set; O(1) for sets!
         # see if message_id is in ^ list
         if message_id in liked_message_ids:
-            # if it is, .remove() message from user's likes 
+            # if it is, .remove() message from user's likes
             g.user.liked_messages.remove(target_message)
         else:
             # if it is not, grab message based on message_id and .append()
             g.user.liked_messages.append(target_message)
 
-        db.session.commit() 
+        db.session.commit()
 
         serialized = target_message.serialize()
 
         return (jsonify(message=serialized), 201)
     else:
         flash("Error!", "danger")
-    
+
 
 # add in messages id to url param instead of using the form
-# @app.post('/messages/likes')
-# def like_message():
-#     """Like/Dislike a message."""
+@app.post('/messages/likes')
+def like_message():
+    """Like/Dislike a message."""
 
-#     if not g.user:
-#         flash("Access unauthorized.", "danger")
-#         return redirect("/")
+    if not g.user:
+        flash("Access unauthorized.", "danger")
+        return redirect("/")
 
-#     # try using WTForms to do this instead
-#     form = g.csrf_form
+    # try using WTForms to do this instead
+    form = g.csrf_form
 
-#     if form.validate_on_submit():
-#         redirect_loc = request.form["redirect_loc"]
+    if form.validate_on_submit():
+        redirect_loc = request.form["redirect_loc"]
 
-#         # use our ORM to do this instead - .append()
-#         message = request.form["message_id"]
-#         like = Like.query.get((g.user.id, message))
+        # use our ORM to do this instead - .append()
+        message = request.form["message_id"]
+        like = Like.query.get((g.user.id, message))
 
-#         if like:
-#             db.session.delete(like)
-#             db.session.commit()
-#             return redirect(redirect_loc)
+        if like:
+            db.session.delete(like)
+            db.session.commit()
+            return redirect(redirect_loc)
 
-#         else:
-#             new_like = Like(user_id=g.user.id, message_id=message)
-#             db.session.add(new_like)
-#             db.session.commit()
-#             return redirect(redirect_loc)
-#     else:
-#         return redirect(redirect_loc)
+        else:
+            new_like = Like(user_id=g.user.id, message_id=message)
+            db.session.add(new_like)
+            db.session.commit()
+            return redirect(redirect_loc)
+    else:
+        return redirect(redirect_loc)
 
 
 
@@ -445,9 +440,9 @@ def like_unlike_message(message_id):
 @app.get('/')
 def homepage():
     """Show homepage:
-
     - anon users: no messages
-    - logged in: 100 most recent messages of followed_users
+    - logged in: 100 most recent messages of followed_users if following anyone,
+        or all users if not following anyone (or else it looks broken)
     """
 
     if g.user:
@@ -458,6 +453,13 @@ def homepage():
         messages = (Message
                     .query
                     .filter(Message.user_id.in_(following))
+                    .order_by(Message.timestamp.desc())
+                    .limit(100)
+                    .all())
+
+        if len(following) == 1:
+            messages = (Message
+                    .query
                     .order_by(Message.timestamp.desc())
                     .limit(100)
                     .all())
