@@ -1,7 +1,5 @@
 # Warbler
 
-Twitter like clone
-
 ## Features
 - CRUD features for user posts, likes, delete
 - User registration and authentication
