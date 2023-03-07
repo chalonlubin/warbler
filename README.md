@@ -6,19 +6,17 @@ Twitter like clone
 - CRUD features for user posts, likes, delete
 - User registration and authentication
 - DB with many-to-many relationships
-- FLask Blueprint usage
-- 92% test coverage
+- 90% test coverage
 
 ## Environment Setup
-
-Add a `.env` file in the top level directory and include the following ::
+```
+Add a `.env` file in the top level directory and include the following 
 
   DATABASE_URL=postgresql:///warbler
   DATABASE_URL_TEST=postgresql:///warbler-test
-  FLASK_APP=warbler
   SECRET_KEY=so_secret
 
-You'll need Python3 and PostgreSQL ::
+You'll need Python3 and PostgreSQL
 
   python3 -m venv venv
   source venv/bin/activate
@@ -27,18 +25,10 @@ You'll need Python3 and PostgreSQL ::
   createdb warbler
   createdb warbler-test
 
-Install warbler as a python package in the top level directory ::
-
-  pip install -e .
-
-After installing warbler delete the warbler.egg-info/ directory ::
-
-  rm -rf warbler.egg-info/
-
 Then to run ::
 
   flask run -p (PORT)
-
+```
 ---
 
 ## Tech
