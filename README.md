@@ -1,51 +1,44 @@
 # Warbler
+A twitter clone with a Flask back end
 
-Twitter like clone
+Deployed at: https://warbler-nm.onrender.com/
 
 ## Features
-- CRUD features for user posts, likes, delete
-- User registration and authentication
-- DB with many-to-many relationships
-- FLask Blueprint usage
+- User registration/authentication/profile deletion
+- Posting, liking, and deleting messages
+- Following/unfollowing users
+- Chronological feed of followed-users' messages
 - 92% test coverage
 
-## Environment Setup
-
-Add a `.env` file in the top level directory and include the following ::
-
-  DATABASE_URL=postgresql:///warbler
-  DATABASE_URL_TEST=postgresql:///warbler-test
-  FLASK_APP=warbler
-  SECRET_KEY=so_secret
-
-You'll need Python3 and PostgreSQL ::
-
-  python3 -m venv venv
-  source venv/bin/activate
-  pip3 install -r requirements.txt
-
-  createdb warbler
-  createdb warbler-test
-
-Install warbler as a python package in the top level directory ::
-
-  pip install -e .
-
-After installing warbler delete the warbler.egg-info/ directory ::
-
-  rm -rf warbler.egg-info/
-  
----
+## Setting it up
+1. Create a virtual environment and install requirements:
+```
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip3 install -r requirements.txt
+```
+2. Set up the database (PostgreSQL):
+```
+$ psql
+=# CREATE DATABASE warbler;
+(ctrl+D)
+$ python3 seed.py
+```
+3. Add a .env file with:
+```
+SECRET_KEY=(any secret key you want)
+DATABASE_URL=postgresql:///warbler
+```
+4. Run the server:
+```
+$ flask run -p 5001
+```
+5. View at `localhost:5001`
 
 ## Tech
+- Vanilla JS, Axios, Flask, SQLAlchemy, WTForms, bcrypt 
 
-Python | Flask | SQL | Postgres | Javascript | HTML | CSS | Bootstrap
-
-## Description
-
-Built in 3.5 days as part of a sprint w/ @nicom while attending Rithm School.
-
-## To Do
-- UX / UI improvments 
-- User messaging interface, possibly with websocket
-- Additional tests
+## // TODO
+- Fix background image formatting
+- Shift to responsive, SPA front-end framework
+- Write more tests
