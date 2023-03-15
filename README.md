@@ -1,9 +1,12 @@
 # Warbler
-Twitter like app with a flask powered backend.
+
+Twitter like messaging board. 
+
+Built in a 3.5 day sprint with @nicom as a part of Rithm School. 
 
 Deployed at: https://the-warbler.onrender.com
 
-**Test Login:** _testuser _
+**Test Login:** _testuser_
 **pw:** _password_
 
 ## Features
@@ -13,7 +16,7 @@ Deployed at: https://the-warbler.onrender.com
 - Chronological feed of followed-users' messages
 - 92% test coverage
 
-## Setting it up
+## Environment Setup
 1. Create a virtual environment and install requirements:
 ```
 $ python3 -m venv venv
@@ -39,7 +42,7 @@ $ flask run -p 5001
 5. View at `localhost:5001`
 
 ## Tech
-- Vanilla JS, Axios, Flask, SQLAlchemy, WTForms, bcrypt 
+- Vanilla JS, Axios, Python, Flask, SQLAlchemy, WTForms, bcrypt 
 
 ## // TODO
 - Fix background image formatting
