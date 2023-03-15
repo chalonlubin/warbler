@@ -2,7 +2,9 @@
 Twitter like app with a flask powered backend.
 
 Deployed at: https://the-warbler.onrender.com
-Test Login: testuser pw: password
+
+Test Login: testuser 
+pw: password
 
 ## Features
 - User registration/authentication/profile deletion
