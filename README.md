@@ -4,9 +4,9 @@ Twitter like messaging board.
 
 Built in a 3.5 day sprint with @nicom as a part of Rithm School. 
 
-Deployed at: https://the-warbler.onrender.com
+Deployed at: https://warbler.up.railway.app/
 
-**Test Login:** _testuser_
+**Test Login:** _guest_
 **pw:** _password_
 
 ## Features
@@ -46,5 +46,6 @@ $ flask run -p 5001
 
 ## // TODO
 - Fix background image formatting
+- Fix login unusccessful UI message
 - Shift to responsive, SPA front-end framework
-- Write more tests
+- Write additional tests
