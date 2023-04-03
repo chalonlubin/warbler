@@ -1,22 +1,33 @@
 # Warbler
 
-Twitter like messaging board. 
+Twitter like messaging board
 
-Built in a 3.5 day sprint with @nicom as a part of Rithm School. 
-
-Deployed at: https://warbler.up.railway.app/
+[Demo Here](https://warbler.up.railway.app/)
 
 **Test Login:** _guest_
 **pw:** _password_
 
-## Features
+## 🧐 Motivation & Challenges
+
+> This project was built in a 3.5 day sprint with @nicom as a part of Rithm School. Much of the code was given to us, it was up to us to find and fix many errors in the codebase, as well as implement certain unfinished features. 
+
+> The major challenge with the project was it was the first time working with a codebase of decent size that we were unfamiliar with. We then had to budget time to implement fixes. 
+
+## 💻 Tech Stack 
+
+**JavaScript | Python | Flask | SQLAlchemy | Jinja ** 
+
+## ⭐️ Features (added by us)
+
 - User registration/authentication/profile deletion
 - Posting, liking, and deleting messages
 - Following/unfollowing users
 - Chronological feed of followed-users' messages
+- Password hashing with bCrypt
 - 92% test coverage
 
-## Environment Setup
+## 📦 Install & Run
+
 1. Create a virtual environment and install requirements:
 ```
 $ python3 -m venv venv
@@ -41,11 +52,9 @@ $ flask run -p 5001
 ```
 5. View at `localhost:5001`
 
-## Tech
-- Vanilla JS, Axios, Python, Flask, SQLAlchemy, WTForms, bcrypt 
 
-## // TODO
+### ☑️ To-Do's
 - Fix background image formatting
-- Fix login unusccessful UI message
+- Fix login "unsuccessful" UI message
 - Shift to responsive, SPA front-end framework
-- Write additional tests
+- Additional testing
