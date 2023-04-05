@@ -15,7 +15,7 @@ Warbler is a Twitter like messaging board, where users can register, login, like
 
 ## 💻 Tech Stack 
 
-**JavaScript | Python | Flask | SQLAlchemy | Jinja ** 
+**JavaScript | Python | Flask | SQLAlchemy | Jinja** 
 
 ## ⭐️ Features (added by us)
 
